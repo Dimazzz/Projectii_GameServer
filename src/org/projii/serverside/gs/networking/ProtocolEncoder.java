@@ -10,7 +10,7 @@ import org.projii.commons.TimeLogger;
 
 import java.nio.ByteBuffer;
 
-class ProtocolEncoder extends SimpleChannelHandler {
+public class ProtocolEncoder extends SimpleChannelHandler {
     @Override
     public void writeRequested(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
         BSONDocument document = (BSONDocument) e.getMessage();

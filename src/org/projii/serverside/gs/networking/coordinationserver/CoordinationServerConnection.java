@@ -1,7 +1,8 @@
-package org.projii.serverside.gs.networking;
+package org.projii.serverside.gs.networking.coordinationserver;
 
+import org.projii.serverside.commons.GameServerInfo;
 import org.projii.serverside.gs.ClientInfo;
-import org.projii.serverside.gs.GameServerInfo;
+
 
 public interface CoordinationServerConnection {
 

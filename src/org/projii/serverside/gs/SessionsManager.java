@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SessionsManager {
-
     List<Entry> clients;
 
     public SessionsManager() {
@@ -45,6 +44,10 @@ public class SessionsManager {
         return null;
     }
 
+    public void removeAll() {
+        clients = new ArrayList<>();
+    }
+
     private class Entry {
         private final ClientInfo clientInfo;
         private boolean isConfirmed;
@@ -67,7 +70,4 @@ public class SessionsManager {
         }
     }
 
-    public void removeAll() {
-        clients = new ArrayList<>();
-    }
 }

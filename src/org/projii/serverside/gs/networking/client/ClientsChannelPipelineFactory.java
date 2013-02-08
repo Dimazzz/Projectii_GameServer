@@ -1,8 +1,10 @@
-package org.projii.serverside.gs.networking;
+package org.projii.serverside.gs.networking.client;
 
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
 import org.jboss.netty.channel.Channels;
+import org.projii.serverside.gs.networking.ProtocolDecoder;
+import org.projii.serverside.gs.networking.ProtocolEncoder;
 
 public class ClientsChannelPipelineFactory implements ChannelPipelineFactory {
 
