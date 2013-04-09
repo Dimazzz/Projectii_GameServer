@@ -28,16 +28,13 @@ public class GameServer {
 
         Map<Class<? extends InteractionMessage>, RequestHandler> coordinationServerRequestHandlers =
                 initializeCoordinationServerRequestHandlers(sessionsManager);
-        ExecutionLayer coordinationServerExecutionLayer =
-                new ExecutionLayer(
-                        coordinationServerRequestHandlers,
-                        executorService);
         Map<Integer, Class> coordinationServerRequestCorrespondenceTable =
                 initializeCoordinationServerRequestCorrespondenceTable();
         ChannelPipelineFactory coordinationServerPipelineFactory =
                 new CoordinationServerChannelPipelineFactory(
-                        coordinationServerExecutionLayer,
-                        coordinationServerRequestCorrespondenceTable);
+                        coordinationServerRequestCorrespondenceTable,
+                        executorService,
+                        coordinationServerRequestHandlers);
 
         ChannelPipelineFactory clientsServerPipelineFactory = null;
 

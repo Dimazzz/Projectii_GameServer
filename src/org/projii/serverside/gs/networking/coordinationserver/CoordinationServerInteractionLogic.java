@@ -5,21 +5,26 @@ import org.jboss.netty.channel.ChannelStateEvent;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
 import org.projii.commons.net.InteractionMessage;
+import org.projii.serverside.commons.RequestHandler;
 import org.projii.serverside.commons.crossServerRequests.AuthorizationRequest;
-import org.projii.serverside.gs.ExecutionLayer;
+
+import java.util.Map;
 
 public class CoordinationServerInteractionLogic extends SimpleChannelHandler {
 
-    private final ExecutionLayer executionLayer;
+    private final Map<Class<? extends InteractionMessage>, RequestHandler> handlers;
 
-    public CoordinationServerInteractionLogic(ExecutionLayer executionLayer) {
-        this.executionLayer = executionLayer;
+    public CoordinationServerInteractionLogic(Map<Class<? extends InteractionMessage>, RequestHandler> handlers) {
+        this.handlers = handlers;
     }
 
     @Override
     public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
-        InteractionMessage message = (InteractionMessage) e.getMessage();
-        executionLayer.exec(message, ctx.getChannel());
+        Object message = e.getMessage();
+        RequestHandler requestHandler = handlers.get(message);
+        if (requestHandler != null) {
+            requestHandler.handle((InteractionMessage) message, ctx.getChannel());
+        }
     }
 
     @Override
