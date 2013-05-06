@@ -4,16 +4,19 @@ import org.jboss.netty.channel.Channel;
 import org.projii.commons.net.InteractionMessage;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
 public class OutLayer {
 
     private final ExecutorService workers;
     private Channel coordinationServerChannel;
-    private HashMap<Integer, Channel> clientChannels;
+    private Map<Integer, Channel> clientChannels;
+
 
     public OutLayer(ExecutorService workers) {
         this.workers = workers;
+        this.clientChannels = new HashMap<>();
     }
 
     public void setCS(Channel channel) {

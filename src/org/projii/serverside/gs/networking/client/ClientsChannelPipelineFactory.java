@@ -39,8 +39,7 @@ public class ClientsChannelPipelineFactory implements ChannelPipelineFactory {
         channelPipeline.addLast("Message decoder", new MessageDecoder(correspondenceTable));
         channelPipeline.addLast("Message encoder", new CachedMessageEncoder(messageEncoderCache));
         channelPipeline.addLast("Execution handler", new ExecutionHandler(workers, false, true));
-        channelPipeline.addLast("Execution handler", new ClientInteractionLogic(handlers));
-
+        channelPipeline.addLast("Interaction logic", new ClientInteractionLogic(handlers));
         return channelPipeline;
     }
 }
