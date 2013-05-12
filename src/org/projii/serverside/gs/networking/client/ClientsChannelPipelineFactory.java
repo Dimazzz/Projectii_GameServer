@@ -5,11 +5,8 @@ import org.jboss.netty.channel.ChannelPipelineFactory;
 import org.jboss.netty.channel.Channels;
 import org.jboss.netty.handler.execution.ExecutionHandler;
 import org.projii.commons.net.InteractionMessage;
-import org.projii.serverside.commons.MessageDecoder;
-import org.projii.serverside.commons.ProtocolDecoder;
-import org.projii.serverside.commons.RequestHandler;
-import org.projii.serverside.gs.networking.CachedMessageEncoder;
-import org.projii.serverside.gs.networking.CachedProtocolEncoder;
+import org.projii.serverside.commons.*;
+
 import sun.misc.Cache;
 
 import java.util.Map;
@@ -35,10 +32,12 @@ public class ClientsChannelPipelineFactory implements ChannelPipelineFactory {
     public ChannelPipeline getPipeline() throws Exception {
         ChannelPipeline channelPipeline = Channels.pipeline();
         channelPipeline.addLast("Protocol decoder", new ProtocolDecoder());
-        channelPipeline.addLast("Protocol encoder", new CachedProtocolEncoder(protocolEncoderCache));
+        channelPipeline.addLast("Cacher", new MessageCacher(protocolEncoderCache));
+        channelPipeline.addLast("Protocol encoder", new ProtocolEncoder());
         channelPipeline.addLast("Message decoder", new MessageDecoder(correspondenceTable));
-        channelPipeline.addLast("Message encoder", new CachedMessageEncoder(messageEncoderCache));
+        channelPipeline.addLast("Message encoder", new MessageEncoder());
         channelPipeline.addLast("Execution handler", new ExecutionHandler(workers, false, true));
+        channelPipeline.addLast("Cache decider", new MessageCacheDecider(protocolEncoderCache));
         channelPipeline.addLast("Interaction logic", new ClientInteractionLogic(handlers));
         return channelPipeline;
     }
