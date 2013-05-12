@@ -6,14 +6,14 @@ import org.projii.serverside.gs.Vector2;
 public class MoveTo implements InteractionMessage {
 
     private final int type = GameServerResponses.MOVE_TO;
-    private float previousAngle;
+    private  float previousAngle;
     private float nextAngle;
-    private Vector2 currentSpeed;
-    private Vector2 incrementSpeed;
+    private Vector2 pointFrom;
+    private Vector2 pointTo;
     public MoveTo(){};
-    public MoveTo(float previousAngle,float nextAngle,Vector2 currentSpeed,Vector2 incrementSpeed) {
-        this.currentSpeed=currentSpeed;
-        this.incrementSpeed=incrementSpeed;
+    public MoveTo(final float previousAngle,final float nextAngle,final Vector2 pointFrom,final Vector2 pointTo) {
+        this.pointFrom = pointFrom;
+        this.pointTo = pointTo;
         this.nextAngle=nextAngle;
         this.previousAngle=previousAngle;
 
@@ -28,32 +28,24 @@ public class MoveTo implements InteractionMessage {
         return previousAngle;
     }
 
-    public void setPreviousAngle(float previousAngle) {
-        this.previousAngle = previousAngle;
-    }
+
 
     public float getNextAngle() {
         return nextAngle;
     }
 
-    public void setNextAngle(float nextAngle) {
-        this.nextAngle = nextAngle;
+
+
+    public Vector2 getPointFrom() {
+        return pointFrom;
     }
 
-    public Vector2 getCurrentSpeed() {
-        return currentSpeed;
+
+
+    public Vector2 getPointTo() {
+        return pointTo;
     }
 
-    public void setCurrentSpeed(Vector2 currentSpeed) {
-        this.currentSpeed = currentSpeed;
-    }
 
-    public Vector2 getIncrementSpeed() {
-        return incrementSpeed;
-    }
-
-    public void setIncrementSpeed(Vector2 incrementSpeed) {
-        this.incrementSpeed = incrementSpeed;
-    }
 }
 
